@@ -1,14 +1,14 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database');
 
 // Import routes
+const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const deckRoutes = require('./routes/decks');
 const flashcardRoutes = require('./routes/flashcards');
 const deckFlashcardRoutes = require('./routes/deck_flashcards');
-
-require('dotenv').config();
 
 const app = express();
 
@@ -24,6 +24,7 @@ app.get('/', (_, res) => {
   });
 });
 
+app.use('/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/decks', deckRoutes);
 app.use('/api/flashcards', flashcardRoutes);
