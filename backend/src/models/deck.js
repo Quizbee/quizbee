@@ -15,7 +15,7 @@ const Deck = sequelize.define(
       allowNull: false,
     },
     name: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: false,
       unique: true,
     },
