@@ -37,7 +37,7 @@ function LandingPage() {
               it simple and fun to achieve your goals.
             </Typography>
             <button
-              className="mt-10 inline-flex items-center justify-center rounded border border-white bg-black px-5 py-3 text-center font-bold text-white hover:scale-105 hover:bg-zinc-700"
+              className="mt-10 inline-flex items-center justify-center rounded border border-white bg-black px-5 py-3 text-center font-bold text-white transition-all hover:scale-105 hover:bg-zinc-700"
               onClick={() => navigate('/login')}
             >
               <svg
