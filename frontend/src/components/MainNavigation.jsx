@@ -16,7 +16,7 @@ const MainNavigation = () => {
           <img
             src={logo}
             alt="Logo"
-            className="w-44 transition-all hover:scale-105"
+            className="w-40 transition-all hover:scale-105"
             onClick={() => navigate('/')}
           ></img>
         </a>
