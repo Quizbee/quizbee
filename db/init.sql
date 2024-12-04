@@ -10,21 +10,21 @@ users CASCADE;
 -- Create Users Table
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  username VARCHAR(50) UNIQUE NOT NULL,
-  email VARCHAR(100) UNIQUE NOT NULL,
+  username TEXT UNIQUE NOT NULL,
+  email TEXT UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- Create Decks Table
 CREATE TABLE decks (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  name VARCHAR(100) NOT NULL UNIQUE,
+  name TEXT NOT NULL UNIQUE,
   description TEXT,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- Create Flashcards Table
@@ -33,8 +33,8 @@ CREATE TABLE flashcards (
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   front TEXT NOT NULL,
   back TEXT NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- Create DeckFlashcards Table (Many-to-Many Relationship)
@@ -42,7 +42,7 @@ CREATE TABLE deck_flashcards (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   deck_id UUID NOT NULL REFERENCES decks(id) ON DELETE CASCADE,
   flashcard_id UUID NOT NULL REFERENCES flashcards(id) ON DELETE CASCADE,
-  added_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  added_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE (deck_id, flashcard_id)
 );
 
