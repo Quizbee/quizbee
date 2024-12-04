@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage';
 import RootLayout from './pages/RootLayout';
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
+import FullDeckPage from './pages/FullDeckPage';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
       { index: true, element: <LandingPage /> },
       { path: '/login', element: <AuthPage /> },
       { path: '/dashboard', element: <DashboardPage /> },
+      { path: '/decks/:deckId', element: <FullDeckPage /> },
     ],
   },
 ]);
