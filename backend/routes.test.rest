@@ -69,3 +69,37 @@ Content-Type: application/json
 
 ### View All Flashcards in a Deck
 GET http://localhost:5000/api/deckFlashcards/bc5a8d22-9660-4511-9fb8-78c1f0fc2c57 HTTP/1.1
+
+
+### Register a New User
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+  "username": "newuser",
+  "email": "newuser@example.com",
+  "password": "Password123!"
+}
+
+### Login User
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+  "email": "newuser@example.com",
+  "password": "Password123!"
+}
+
+### Get User Info
+GET http://localhost:5000/api/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0OTgyNzJkNC04MTk4LTQzMjYtODdmOC1jNTZlNDcyY2M0ZTQiLCJpYXQiOjE3MzMzMzU0NzUsImV4cCI6MTczMzMzOTA3NX0.tFp9mWjwsecZwi-Ifq18vx6mDUX0B-bWu_oEa_fdB8Y
+
+### Edit User Data
+PUT http://localhost:5000/api/users/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0OTgyNzJkNC04MTk4LTQzMjYtODdmOC1jNTZlNDcyY2M0ZTQiLCJpYXQiOjE3MzMzMzU0NzUsImV4cCI6MTczMzMzOTA3NX0.tFp9mWjwsecZwi-Ifq18vx6mDUX0B-bWu_oEa_fdB8Y
+
+{
+  "username": "anotherUsername",
+  "email": "newEmail@example.com"
+}
