@@ -1,8 +1,19 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Model, Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const bcrypt = require('bcrypt');
 
-const User = sequelize.define(
-  'user',
+class User extends Model {
+  static async hashPassword(password) {
+    const salt = await bcrypt.genSalt(); // Generate salt
+    return bcrypt.hash(password, salt); // Hash password
+  }
+
+  static async validatePassword(inputPassword, storedPassword) {
+    return bcrypt.compare(inputPassword, storedPassword); // Compare passwords
+  }
+}
+
+User.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -10,12 +21,12 @@ const User = sequelize.define(
       primaryKey: true,
     },
     username: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.TEXT,
       allowNull: false,
       unique: true,
     },
     email: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: false,
       unique: true,
     },
@@ -35,7 +46,19 @@ const User = sequelize.define(
     },
   },
   {
+    sequelize,
+    modelName: 'user',
+    tableName: 'users',
     timestamps: false, // Disable Sequelize's automatic timestamps
+
+    hooks: {
+      beforeCreate: async (user) => {
+        user.password_hash = await User.hashPassword(user.password_hash);
+      },
+      beforeUpdate: async (user) => {
+        user.password_hash = await User.hashPassword(user.password_hash);
+      },
+    },
   }
 );
 
