@@ -1,9 +1,10 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Model, Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const User = require('./user');
 
-const Deck = sequelize.define(
-  'deck',
+class Deck extends Model {}
+
+Deck.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -35,6 +36,9 @@ const Deck = sequelize.define(
     },
   },
   {
+    sequelize,
+    modelName: 'deck',
+    tableName: 'decks',
     timestamps: false,
   }
 );
@@ -43,6 +47,10 @@ const Deck = sequelize.define(
 Deck.belongsTo(User, {
   foreignKey: 'user_id',
   onDelete: 'CASCADE',
+});
+
+User.hasMany(Deck, {
+  foreignKey: 'user_id',
 });
 
 module.exports = Deck;
