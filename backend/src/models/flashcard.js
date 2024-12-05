@@ -1,16 +1,17 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Model, Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const User = require('./user');
+const Deck = require('./deck');
 
-const Flashcard = sequelize.define(
-  'flashcard',
+class Flashcard extends Model {}
+
+Flashcard.init(
   {
     id: {
       type: DataTypes.UUID,
       defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
     },
-    user_id: {
+    deck_id: {
       type: DataTypes.UUID,
       allowNull: false,
     },
@@ -27,21 +28,23 @@ const Flashcard = sequelize.define(
       allowNull: false,
       defaultValue: Sequelize.NOW,
     },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Sequelize.NOW,
-    },
   },
   {
+    sequelize,
+    modelName: 'flashcard',
+    tableName: 'flashcards',
     timestamps: false,
   }
 );
 
-// Establish the relationship with User
-Flashcard.belongsTo(User, {
-  foreignKey: 'user_id',
+// Establish the relationship with Deck
+Flashcard.belongsTo(Deck, {
+  foreignKey: 'deck_id',
   onDelete: 'CASCADE',
+});
+
+Deck.hasMany(Flashcard, {
+  foreignKey: 'deck_id',
 });
 
 module.exports = Flashcard;
