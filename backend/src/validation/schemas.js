@@ -54,14 +54,9 @@ const deckSchema = Joi.object({
 });
 
 const flashcardSchema = Joi.object({
-  user_id: Joi.string().uuid().required(),
+  deck_id: Joi.string().uuid().required(),
   front: Joi.string().max(500).required(),
   back: Joi.string().max(500).required(),
-});
-
-const deckFlashcardSchema = Joi.object({
-  deck_id: Joi.string().uuid().required(),
-  flashcard_id: Joi.string().uuid().required(),
 });
 
 module.exports = {
@@ -70,5 +65,4 @@ module.exports = {
   userLoginSchema,
   deckSchema,
   flashcardSchema,
-  deckFlashcardSchema,
 };
