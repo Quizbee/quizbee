@@ -1,46 +1,34 @@
 const express = require('express');
-
-const Deck = require('../models/deck');
 const { deckSchema } = require('../validation/schemas');
 const validateRequest = require('../utils/validateRequest');
+const authenticateToken = require('../middleware/authenticate_token');
+const deckController = require('../controllers/deckController');
 
 const router = express.Router();
 
 // Get all decks
-router.get('/', async (req, res) => {
-  try {
-    const decks = await Deck.findAll();
-    res.json(decks);
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: 'Failed to fetch decks' });
-  }
-});
+router.get('/', authenticateToken, deckController.getAllDecks);
 
 // Get a specific deck by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const deck = await Deck.findByPk(req.params.id);
-    if (!deck) {
-      return res.status(404).json({ error: 'Deck not found' });
-    }
-    res.json(deck);
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: 'Failed to fetch deck' });
-  }
-});
+router.get('/:id', authenticateToken, deckController.getDeckById);
 
 // Create a new deck
-router.post('/', validateRequest(deckSchema), async (req, res) => {
-  try {
-    const { user_id, name, description } = req.body;
-    const newDeck = await Deck.create({ user_id, name, description });
-    res.status(201).json(newDeck);
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: 'Failed to create deck' });
-  }
-});
+router.post(
+  '/',
+  authenticateToken,
+  validateRequest(deckSchema),
+  deckController.createDeck
+);
+
+// Update a deck
+router.put(
+  '/:id',
+  authenticateToken,
+  validateRequest(deckSchema),
+  deckController.updateDeck
+);
+
+// Delete a deck
+router.delete('/:id', authenticateToken, deckController.deleteDeck);
 
 module.exports = router;
