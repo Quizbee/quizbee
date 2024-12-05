@@ -1,46 +1,38 @@
 const express = require('express');
-
-const Flashcard = require('../models/flashcard');
 const { flashcardSchema } = require('../validation/schemas');
 const validateRequest = require('../utils/validateRequest');
+const authenticateToken = require('../middleware/authenticate_token');
+const flashcardController = require('../controllers/flashcardController');
 
 const router = express.Router();
 
-// Get all flashcards
-router.get('/', async (req, res) => {
-  try {
-    const flashcards = await Flashcard.findAll();
-    res.json(flashcards);
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: 'Failed to fetch flashcards' });
-  }
-});
+// Get all flashcards for a specific deck
+router.get(
+  '/deck/:deck_id',
+  authenticateToken,
+  flashcardController.getFlashcardsByDeck
+);
 
 // Get a specific flashcard by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const flashcard = await Flashcard.findByPk(req.params.id);
-    if (!flashcard) {
-      return res.status(404).json({ error: 'Flashcard not found' });
-    }
-    res.json(flashcard);
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: 'Failed to fetch flashcard' });
-  }
-});
+router.get('/:id', authenticateToken, flashcardController.getFlashcardById);
 
 // Create a new flashcard
-router.post('/', validateRequest(flashcardSchema), async (req, res) => {
-  try {
-    const { user_id, front, back } = req.body;
-    const newFlashcard = await Flashcard.create({ user_id, front, back });
-    res.status(201).json(newFlashcard);
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: 'Failed to create flashcard' });
-  }
-});
+router.post(
+  '/',
+  authenticateToken,
+  validateRequest(flashcardSchema),
+  flashcardController.createFlashcard
+);
+
+// Update a flashcard
+router.put(
+  '/:id',
+  authenticateToken,
+  validateRequest(flashcardSchema),
+  flashcardController.updateFlashcard
+);
+
+// Delete a flashcard
+router.delete('/:id', authenticateToken, flashcardController.deleteFlashcard);
 
 module.exports = router;
