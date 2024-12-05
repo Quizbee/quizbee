@@ -2,13 +2,13 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database');
+const errorHandler = require('./middleware/errorHandler'); // Import the errorHandler
 
 // Import routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const deckRoutes = require('./routes/decks');
 const flashcardRoutes = require('./routes/flashcards');
-const deckFlashcardRoutes = require('./routes/deck_flashcards');
 
 const app = express();
 
@@ -28,7 +28,9 @@ app.use('/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/decks', deckRoutes);
 app.use('/api/flashcards', flashcardRoutes);
-app.use('/api/deckFlashcards', deckFlashcardRoutes);
+
+// Use the errorHandler middleware
+app.use(errorHandler);
 
 sequelize
   .sync() // Sync models
