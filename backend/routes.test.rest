@@ -1,105 +1,107 @@
 ### Root Endpoint
 GET http://localhost:5000/ HTTP/1.1
 
-### Get All Users
-GET http://localhost:5000/api/users HTTP/1.1
-
-### Get a Single User by ID
-GET http://localhost:5000/api/users/d2d4cd22-72fa-4496-b5fb-abb56af23452 HTTP/1.1
+### Get User Info
+GET http://localhost:5000/api/users/me HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
 
 ### Create a New User
-POST http://localhost:5000/api/users HTTP/1.1
+POST http://localhost:5000/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "test_user",
-  "email": "test.user@example.com",
-  "password": "securehashedpassword"
-}
-
-### Get All Decks
-GET http://localhost:5000/api/decks HTTP/1.1
-
-### Get a Single Deck by ID
-GET http://localhost:5000/api/decks/bc5a8d22-9660-4511-9fb8-78c1f0fc2c57 HTTP/1.1
-
-### Create a New Deck
-POST http://localhost:5000/api/decks HTTP/1.1
-Content-Type: application/json
-
-{
-  "user_id": "d2d4cd22-72fa-4496-b5fb-abb56af23452",
-  "name": "Physics Deck",
-  "description": "A deck about physics flashcards."
-}
-
-### Get All Flashcards
-GET http://localhost:5000/api/flashcards HTTP/1.1
-
-### Get a Single Flashcard by ID
-GET http://localhost:5000/api/flashcards/d3eb885c-2bb6-4009-8fcb-f11e518af4fc HTTP/1.1
-
-### Create a New Flashcard
-POST http://localhost:5000/api/flashcards HTTP/1.1
-Content-Type: application/json
-
-{
-  "user_id": "d2d4cd22-72fa-4496-b5fb-abb56af23452",
-  "front": "What is the powerhouse of the cell?",
-  "back": "Mitochondria"
-}
-
-### Add a Flashcard to a Deck
-POST http://localhost:5000/api/deckFlashcards HTTP/1.1
-Content-Type: application/json
-
-{
-  "deck_id": "bc5a8d22-9660-4511-9fb8-78c1f0fc2c57",
-  "flashcard_id": "d3eb885c-2bb6-4009-8fcb-f11e518af4fc"
-}
-
-### Remove a Flashcard from a Deck
-DELETE http://localhost:5000/api/deckFlashcards HTTP/1.1
-Content-Type: application/json
-
-{
-  "deck_id": "bc5a8d22-9660-4511-9fb8-78c1f0fc2c57",
-  "flashcard_id": "d3eb885c-2bb6-4009-8fcb-f11e518af4fc"
-}
-
-### View All Flashcards in a Deck
-GET http://localhost:5000/api/deckFlashcards/bc5a8d22-9660-4511-9fb8-78c1f0fc2c57 HTTP/1.1
-
-
-### Register a New User
-POST http://localhost:5000/auth/register
-Content-Type: application/json
-
-{
-  "username": "newuser",
-  "email": "newuser@example.com",
+  "username": "exileWarrior",
+  "email": "exile.warrior@example.com",
   "password": "Password123!"
 }
 
 ### Login User
-POST http://localhost:5000/auth/login
+POST http://localhost:5000/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "newuser@example.com",
+  "email": "exile.warrior@example.com",
   "password": "Password123!"
 }
 
-### Get User Info
-GET http://localhost:5000/api/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0OTgyNzJkNC04MTk4LTQzMjYtODdmOC1jNTZlNDcyY2M0ZTQiLCJpYXQiOjE3MzMzMzU0NzUsImV4cCI6MTczMzMzOTA3NX0.tFp9mWjwsecZwi-Ifq18vx6mDUX0B-bWu_oEa_fdB8Y
-
-### Edit User Data
-PUT http://localhost:5000/api/users/me
+### Update User Data
+PUT http://localhost:5000/api/users/me HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0OTgyNzJkNC04MTk4LTQzMjYtODdmOC1jNTZlNDcyY2M0ZTQiLCJpYXQiOjE3MzMzMzU0NzUsImV4cCI6MTczMzMzOTA3NX0.tFp9mWjwsecZwi-Ifq18vx6mDUX0B-bWu_oEa_fdB8Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
 
 {
-  "username": "anotherUsername",
-  "email": "newEmail@example.com"
+  "username": "updatedUser",
+  "email": "updated.user@example.com"
 }
+
+### Delete User
+DELETE http://localhost:5000/api/users/me HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
+
+### Get All Decks
+GET http://localhost:5000/api/decks HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
+
+### Get a Single Deck by ID
+GET http://localhost:5000/api/decks/bc11cc74-6b79-4ba8-835e-847253807c98 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
+
+### Create a New Deck
+POST http://localhost:5000/api/decks HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
+
+{
+  "user_id": "78dc70c1-d1a7-4fd6-a95d-1492b99a7889",
+  "name": "Path of Exile 2 Mechanics",
+  "description": "A deck about the new mechanics in Path of Exile 2."
+}
+
+### Update Deck
+PUT http://localhost:5000/api/decks/bc11cc74-6b79-4ba8-835e-847253807c98 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
+
+{
+  "user_id": "78dc70c1-d1a7-4fd6-a95d-1492b99a7889",
+  "name": "Updated Path of Exile 2 Mechanics",
+  "description": "An updated deck about the new mechanics in Path of Exile 2."
+}
+
+### Delete Deck
+DELETE http://localhost:5000/api/decks/bc5a8d22-9660-4511-9fb8-78c1f0fc2c57 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
+
+### Get All Flashcards for a Deck
+GET http://localhost:5000/api/flashcards/deck/bc11cc74-6b79-4ba8-835e-847253807c98 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
+
+### Get a Single Flashcard by ID
+GET http://localhost:5000/api/flashcards/40e35192-92db-4848-a703-5270f6121452 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
+
+### Create a New Flashcard
+POST http://localhost:5000/api/flashcards HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
+
+{
+  "deck_id": "bc11cc74-6b79-4ba8-835e-847253807c98",
+  "front": "What is the new ascendancy class introduced in Path of Exile 2?",
+  "back": "The Blood Mage"
+}
+
+### Update Flashcard
+PUT http://localhost:5000/api/flashcards/40e35192-92db-4848-a703-5270f6121452 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
+
+{
+  "deck_id": "bc11cc74-6b79-4ba8-835e-847253807c98",
+  "front": "Updated question",
+  "back": "Updated answer"
+}
+
+### Delete Flashcard
+DELETE http://localhost:5000/api/flashcards/40e35192-92db-4848-a703-5270f6121452 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MDRhYzQ4ZS00NGRhLTQ1YTYtOGZmOS1jZjBlMjllMGJjOGIiLCJpYXQiOjE3MzM0MTk2NjEsImV4cCI6MTczMzQyMzI2MX0.RVUO_cfWgWzcP_XFjoSeEmTtTGTz-9upRwHirERsltY
