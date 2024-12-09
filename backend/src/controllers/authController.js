@@ -1,6 +1,12 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
+const generateToken = (user) => {
+  return jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+    expiresIn: '24h',
+  });
+};
+
 const register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
@@ -24,9 +30,18 @@ const register = async (req, res, next) => {
       email,
       password_hash: password,
     });
-    res
-      .status(201)
-      .json({ message: 'User created successfully', userId: newUser.id });
+
+    const token = generateToken(newUser);
+
+    res.status(201).json({
+      message: 'User created successfully',
+      user: {
+        id: newUser.id,
+        username: newUser.username,
+        email: newUser.email,
+      },
+      token,
+    });
   } catch (err) {
     console.error(err);
     next(err); // Propagate the error to the errorHandler middleware
@@ -54,11 +69,16 @@ const login = async (req, res, next) => {
       throw error;
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
+    const token = generateToken(user);
 
-    res.json({ token });
+    res.json({
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
+      token,
+    });
   } catch (err) {
     console.error(err);
     next(err); // Propagate the error to the errorHandler middleware

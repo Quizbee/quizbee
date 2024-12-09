@@ -1,4 +1,3 @@
-// src/routes/users.js
 const express = require('express');
 const { userUpdateSchema } = require('../validation/schemas');
 const validateRequest = require('../utils/validateRequest');

@@ -1,8 +1,5 @@
 const express = require('express');
-const {
-  userLoginSchema,
-  userRegistrationSchema,
-} = require('../validation/schemas');
+const { userRegistrationSchema } = require('../validation/schemas');
 const validateRequest = require('../utils/validateRequest');
 const authController = require('../controllers/authController');
 
@@ -14,6 +11,6 @@ router.post(
   authController.register
 );
 
-router.post('/login', validateRequest(userLoginSchema), authController.login);
+router.post('/login', authController.login);
 
 module.exports = router;

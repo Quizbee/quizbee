@@ -1,55 +1,63 @@
-import React, { useState } from 'react';
-import { Navigate, useBeforeUnload, useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IconButton } from '@material-tailwind/react';
 import logo from '../assets/logo.png';
+import { AuthContext } from '../contexts/AuthContext';
 
 const MainNavigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   return (
     <div>
-      <header className="fixed flex w-full items-center justify-between bg-black px-8 py-0 text-white shadow-lg shadow-zinc-900 md:px-32">
-        <a>
+      <header className="fixed flex w-full items-center justify-between border-b-2 border-zinc-900 bg-black px-8 py-0 text-white md:px-32">
+        <button>
           <img
             src={logo}
             alt="Logo"
             className="w-40 transition-all hover:scale-105"
-            onClick={() => navigate('/')}
+            onClick={user ? () => navigate('/dashboard') : () => navigate('/')}
           ></img>
-        </a>
+        </button>
         <ul className="hidden items-center gap-12 text-base font-semibold xl:flex">
-          <button
-            className="rounded-md p-3 text-xl transition-all hover:scale-105"
-            onClick={() => navigate('/')}
-          >
-            Home
-          </button>
-
-          {isLoggedIn ? (
+          {user ? (
             <>
               <button
                 className="rounded-md p-3 text-xl transition-all hover:scale-105"
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/dashboard')}
               >
-                Decks
+                Dashboard
               </button>
               <button
                 className="rounded-md p-3 text-xl transition-all hover:scale-105"
-                onClick={() => navigate('/')}
+                onClick={handleLogout}
               >
                 Sign Out
               </button>
             </>
           ) : (
-            <button
-              className="rounded-md p-3 text-xl transition-all hover:scale-105"
-              onClick={() => navigate('/login')}
-            >
-              Sign In
-            </button>
+            <>
+              <button
+                className="rounded-md p-3 text-xl transition-all hover:scale-105"
+                onClick={() => navigate('/')}
+              >
+                Get Started
+              </button>
+
+              <button
+                className="rounded-md p-3 text-xl transition-all hover:scale-105"
+                onClick={() => navigate('/login')}
+              >
+                Sign In
+              </button>
+            </>
           )}
         </ul>
 
@@ -95,23 +103,39 @@ const MainNavigation = () => {
         </IconButton>
 
         <div
-          className={`absolute left-0 top-44 flex w-full flex-col items-center gap-6 bg-black pb-6 text-lg font-semibold shadow-md shadow-zinc-900 transition-transform xl:hidden ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute left-0 top-44 flex w-full flex-col items-center gap-6 border-b-2 border-zinc-900 bg-black pb-6 text-lg font-semibold transition-transform xl:hidden ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
           style={{ transition: 'transform 0.3s ease, opacity 0.3 ease' }}
         >
-          <li className="w-full cursor-pointer list-none p-5 text-center transition-all hover:scale-105">
-            Home
-          </li>
-          <li className="w-full cursor-pointer list-none p-5 text-center transition-all hover:scale-105">
-            Deck
-          </li>
-          {isLoggedIn ? (
-            <li className="list-none rounded-md p-3 text-xl transition-all hover:scale-105">
-              Sign Out
-            </li>
+          {user ? (
+            <>
+              <button
+                className="w-full cursor-pointer p-5 text-center transition-all hover:scale-105"
+                onClick={() => navigate('/dashboard')}
+              >
+                Dashboard
+              </button>
+              <button
+                className="rounded-md p-3 text-xl transition-all hover:scale-105"
+                onClick={handleLogout}
+              >
+                Sign Out
+              </button>
+            </>
           ) : (
-            <li className="list-none rounded-md p-3 text-xl transition-all hover:scale-105">
-              Sign In
-            </li>
+            <>
+              <button
+                className="w-full cursor-pointer p-5 text-center transition-all hover:scale-105"
+                onClick={() => navigate('/')}
+              >
+                Get Started
+              </button>
+              <button
+                className="rounded-md p-3 text-xl transition-all hover:scale-105"
+                onClick={() => navigate('/login')}
+              >
+                Sign In
+              </button>
+            </>
           )}
         </div>
       </header>

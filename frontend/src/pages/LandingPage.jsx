@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@material-tailwind/react';
 import logo from '../assets/logo.png';
@@ -7,7 +7,7 @@ import flashcards from '../assets/flashcards.png';
 function LandingPage() {
   const navigate = useNavigate();
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', () => window.innerWidth >= 960);
   }, []);
 

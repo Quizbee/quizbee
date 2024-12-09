@@ -15,12 +15,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health check endpoint
+app.get('/api/health', async (req, res) => {
+  try {
+    await sequelize.authenticate();
+    res.status(200).json({ status: 'ok', database: 'connected' });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      database: 'disconnected',
+      error: error.message,
+    });
+  }
+});
+
 // Routes
 app.get('/', (_, res) => {
   res.json({
     message: 'Welcome to the Flashcards API!',
     usage:
-      'Use the /api/users, /api/decks, and /api/flashcards endpoints to interact with the API.',
+      'Use the /api/users, /api/decks, and /api/flashcards endpoints to interact with the API once authenticated.',
   });
 });
 
