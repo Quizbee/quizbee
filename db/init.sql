@@ -36,135 +36,31 @@ CREATE TABLE flashcards (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Insert Example Data into Users
-INSERT INTO
-  users (username, email, password_hash)
-VALUES
-  (
-    'john_doe',
-    'john.doe@example.com',
-    'hashedpassword123'
-  ),
-  (
-    'jane_smith',
-    'jane.smith@example.com',
-    'hashedpassword456'
-  );
+-- Add indexes
+CREATE INDEX idx_users_email ON users(email);
 
--- Insert Example Data into Decks
-INSERT INTO
-  decks (user_id, name, description)
-VALUES
-  (
-    (
-      SELECT
-        id
-      FROM
-        users
-      WHERE
-        username = 'john_doe'
-    ),
-    'Biology Basics',
-    'Introduction to Biology topics'
-  ),
-  (
-    (
-      SELECT
-        id
-      FROM
-        users
-      WHERE
-        username = 'jane_smith'
-    ),
-    'Physics 101',
-    'Basic physics principles'
-  ),
-  (
-    (
-      SELECT
-        id
-      FROM
-        users
-      WHERE
-        username = 'john_doe'
-    ),
-    'Exam Prep',
-    'General review flashcards for exams'
-  );
+CREATE INDEX idx_decks_user_id ON decks(user_id);
 
--- Insert Example Data into Flashcards
-INSERT INTO
-  flashcards (deck_id, front, back)
-VALUES
-  (
-    (
-      SELECT
-        id
-      FROM
-        decks
-      WHERE
-        name = 'Biology Basics'
-    ),
-    'What is the powerhouse of the cell?',
-    'Mitochondria'
-  ),
-  (
-    (
-      SELECT
-        id
-      FROM
-        decks
-      WHERE
-        name = 'Biology Basics'
-    ),
-    'What is the chemical formula for water?',
-    'H2O'
-  ),
-  (
-    (
-      SELECT
-        id
-      FROM
-        decks
-      WHERE
-        name = 'Physics 101'
-    ),
-    'What is Newton''s first law?',
-    'An object in motion stays in motion unless acted upon by an external force'
-  ),
-  (
-    (
-      SELECT
-        id
-      FROM
-        decks
-      WHERE
-        name = 'Physics 101'
-    ),
-    'What is the acceleration due to gravity on Earth?',
-    '9.8 m/s^2'
-  ),
-  (
-    (
-      SELECT
-        id
-      FROM
-        decks
-      WHERE
-        name = 'Exam Prep'
-    ),
-    'What is the powerhouse of the cell?',
-    'Mitochondria'
-  ),
-  (
-    (
-      SELECT
-        id
-      FROM
-        decks
-      WHERE
-        name = 'Exam Prep'
-    ),
-    'What is the acceleration due to gravity on Earth?',
-    '9.8 m/s^2'
-  );
+CREATE INDEX idx_flashcards_deck_id ON flashcards(deck_id);
+
+-- Add updated_at triggers
+CREATE
+OR REPLACE FUNCTION update_updated_at_column() RETURNS TRIGGER AS $ $ BEGIN NEW.updated_at = NOW();
+
+RETURN NEW;
+
+END;
+
+$ $ language 'plpgsql';
+
+CREATE TRIGGER update_users_updated_at BEFORE
+UPDATE
+  ON users FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_decks_updated_at BEFORE
+UPDATE
+  ON decks FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_flashcards_updated_at BEFORE
+UPDATE
+  ON flashcards FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
