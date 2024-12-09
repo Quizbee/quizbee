@@ -1,5 +1,5 @@
-import React from 'react';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Outlet } from 'react-router-dom';
 import MainNavigation from '../components/MainNavigation';
 
@@ -8,7 +8,7 @@ const RootLayout = () => {
     <>
       <MainNavigation />
       <ToastContainer
-        position="top-right"
+        position="bottom-center"
         autoClose={2000}
         hideProgressBar={false}
         newestOnTop
@@ -17,7 +17,7 @@ const RootLayout = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="colored"
+        theme="dark"
       />
       <main className="pt-40">
         <Outlet />

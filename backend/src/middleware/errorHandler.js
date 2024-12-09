@@ -1,10 +1,12 @@
+const Joi = require('joi');
+
 module.exports = (err, req, res, next) => {
   console.error(err); // Log the error for debugging purposes
 
-  if (err.isJoi) {
+  if (Joi.isError(err)) {
     return res.status(400).json({
       error: 'Validation Error',
-      details: err.details.map((d) => d.message),
+      message: err.details.map((e) => e.message)[0],
     });
   }
 
@@ -27,15 +29,16 @@ module.exports = (err, req, res, next) => {
   }
 
   if (err.name === 'SequelizeUniqueConstraintError') {
-    return res
-      .status(409)
-      .json({ error: 'Conflict', details: err.errors.map((e) => e.message) });
+    return res.status(409).json({
+      error: 'Conflict',
+      message: err.errors.map((e) => e.message)[0],
+    });
   }
 
   if (err.name === 'SequelizeDatabaseError') {
     return res
       .status(500)
-      .json({ error: 'Database Error', details: err.message });
+      .json({ error: 'Database Error', message: err.message });
   }
 
   res.status(500).json({ error: 'Internal Server Error' });
