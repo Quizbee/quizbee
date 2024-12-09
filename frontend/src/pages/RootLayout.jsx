@@ -19,7 +19,7 @@ const RootLayout = () => {
         pauseOnHover
         theme="dark"
       />
-      <main className="pt-40">
+      <main className="relative pt-32 md:pt-40">
         <Outlet />
       </main>
     </>

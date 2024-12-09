@@ -134,9 +134,9 @@ const FullDeck = () => {
   }
 
   return (
-    <div className="flex h-[calc(100vh-10rem)] flex-col bg-black px-6 py-8 text-white lg:px-8">
+    <div className="flex min-h-[calc(100vh-8rem)] flex-col bg-black px-6 py-8 text-white lg:px-8">
       {/* Fixed Header Section */}
-      <div className="flex w-full flex-col items-center">
+      <div className="mb-8 flex w-full flex-col items-center">
         <button
           className="justify-start-start mt-0 flex w-full"
           onClick={() => navigate('/dashboard')}
@@ -230,7 +230,7 @@ const FullDeck = () => {
       </div>
 
       {/* Scrollable Flashcards Grid Container */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="h-[calc(100vh-24rem)] flex-1 overflow-y-auto">
         <div className="grid grid-cols-1 gap-8 p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {flashcards.map((card, index) => (
             <div
@@ -244,7 +244,7 @@ const FullDeck = () => {
                     <span className="inline-block bg-gradient-to-r from-yellow-200 to-yellow-100 bg-clip-text text-sm font-semibold uppercase tracking-widest text-transparent">
                       Question
                     </span>
-                    <p className="mt-2 max-h-24 overflow-y-auto text-lg font-bold tracking-wide text-zinc-100">
+                    <p className="mt-2 line-clamp-2 max-h-24 text-lg font-bold tracking-wide text-zinc-100">
                       {card.front}
                     </p>
                   </div>
@@ -252,7 +252,7 @@ const FullDeck = () => {
                     <span className="inline-block bg-gradient-to-r from-yellow-200 to-yellow-100 bg-clip-text text-sm font-semibold uppercase tracking-widest text-transparent">
                       Answer
                     </span>
-                    <p className="mt-2 max-h-24 overflow-y-auto text-base font-medium leading-relaxed text-zinc-200">
+                    <p className="mt-2 line-clamp-2 text-base font-medium leading-relaxed text-zinc-200">
                       {card.back}
                     </p>
                   </div>

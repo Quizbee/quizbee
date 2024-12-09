@@ -8,7 +8,7 @@ const NotFoundPage = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <div className="flex h-[calc(100vh-10rem)] flex-col items-center justify-center bg-black px-6 py-12 text-white">
+    <div className="flex min-h-[calc(100vh-10rem)] flex-col items-center justify-center bg-black px-6 py-12 text-white">
       <h1 className="mb-8 text-6xl font-bold text-yellow-200">404</h1>
       <p className="mb-12 text-xl">Oops! This page doesn't exist.</p>
       <button
