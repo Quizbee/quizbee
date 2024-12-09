@@ -88,7 +88,7 @@ const DashboardPage = () => {
   }
 
   return (
-    <div className="flex h-[calc(100vh-10rem)] flex-col bg-black px-6 py-12 text-white lg:px-8">
+    <div className="flex min-h-[calc(100vh-10rem)] flex-col bg-black px-6 py-12 text-white lg:px-8">
       <div className="mx-auto w-full max-w-[90rem]">
         <Typography
           variant="h1"

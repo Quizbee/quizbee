@@ -34,7 +34,7 @@ const AuthPage = () => {
 
   return (
     <>
-      <div className="flex h-[calc(100vh-10rem)] flex-1 flex-col bg-black px-6 py-8 text-white lg:px-8">
+      <div className="flex min-h-[calc(100vh-10rem)] flex-1 flex-col bg-black px-6 py-8 text-white lg:px-8">
         <button
           className="justify-start-start mt-0 flex w-full"
           onClick={() => navigate('/')}
@@ -111,14 +111,6 @@ const AuthPage = () => {
                 >
                   Password
                 </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-yellow-200 hover:text-yellow-400"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
               </div>
               <div className="mt-2">
                 <input

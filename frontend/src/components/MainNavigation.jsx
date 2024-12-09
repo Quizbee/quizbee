@@ -17,7 +17,7 @@ const MainNavigation = () => {
 
   return (
     <div>
-      <header className="fixed flex w-full items-center justify-between border-b-2 border-zinc-900 bg-black px-8 py-0 text-white md:px-32">
+      <header className="fixed z-50 flex w-full items-center justify-between border-b-2 border-zinc-900 bg-black px-8 py-0 text-white md:px-32">
         <button>
           <img
             src={logo}
@@ -103,7 +103,7 @@ const MainNavigation = () => {
         </IconButton>
 
         <div
-          className={`absolute left-0 top-44 flex w-full flex-col items-center gap-6 border-b-2 border-zinc-900 bg-black pb-6 text-lg font-semibold transition-transform xl:hidden ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute left-0 top-44 z-50 flex w-full flex-col items-center gap-6 border-b-2 border-zinc-900 bg-black pb-6 text-lg font-semibold transition-transform xl:hidden ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
           style={{ transition: 'transform 0.3s ease, opacity 0.3 ease' }}
         >
           {user ? (

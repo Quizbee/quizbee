@@ -95,7 +95,7 @@ const StudyPage = () => {
   ).length;
 
   return (
-    <div className="flex h-[calc(100vh-10rem)] flex-col bg-black px-6 py-8 text-white">
+    <div className="min-h-(100vh-10rem)] flex flex-col bg-black px-6 py-8 text-white">
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <button
@@ -159,22 +159,26 @@ const StudyPage = () => {
             style={{ transform: isFlipped ? 'rotateY(180deg)' : '' }}
           >
             {/* Front face */}
-            <div className="backface-hidden absolute inset-0 flex flex-col items-center justify-center rounded-xl border border-zinc-700 bg-zinc-800 p-8">
+            <div className="backface-hidden absolute inset-0 flex flex-col items-center justify-center rounded-xl border border-zinc-700 bg-zinc-800 p-8 text-center">
               <span className="mb-4 inline-block bg-gradient-to-r from-yellow-200 to-yellow-100 bg-clip-text text-sm font-semibold uppercase tracking-widest text-transparent">
                 Question
               </span>
-              <p className="text-xl font-medium">{currentCard.front}</p>
+              <p className="max-w-full overflow-y-auto break-words text-center text-xl font-medium">
+                {currentCard.front}
+              </p>
             </div>
 
             {/* Back face */}
             <div
-              className="backface-hidden absolute inset-0 flex flex-col items-center justify-center rounded-xl border border-zinc-700 bg-zinc-800 p-8"
+              className="backface-hidden absolute inset-0 flex flex-col items-center justify-center rounded-xl border border-zinc-700 bg-zinc-800 p-8 text-center"
               style={{ transform: 'rotateY(180deg)' }}
             >
               <span className="mb-4 inline-block bg-gradient-to-r from-yellow-200 to-yellow-100 bg-clip-text text-sm font-semibold uppercase tracking-widest text-transparent">
                 Answer
               </span>
-              <p className="text-xl font-medium">{currentCard.back}</p>
+              <p className="max-w-full overflow-y-auto break-words text-center text-xl font-medium">
+                {currentCard.back}
+              </p>
             </div>
           </div>
         </div>

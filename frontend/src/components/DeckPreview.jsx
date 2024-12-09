@@ -30,7 +30,8 @@ const DeckPreview = ({ deck, onViewDeck, onEditDeck }) => {
               ))}
               {flashcards.length > 3 && (
                 <p className="mt-2 text-sm text-yellow-200/80">
-                  + {flashcards.length - 3} more flashcards
+                  + {flashcards.length - 3} more flashcard
+                  {flashcards.length > 4 && 's'}
                 </p>
               )}
             </div>
@@ -41,7 +42,7 @@ const DeckPreview = ({ deck, onViewDeck, onEditDeck }) => {
       </div>
 
       {/* Footer Section - Fixed Position */}
-      <div className="mt-auto flex justify-between">
+      <div className="mt-4 flex justify-between">
         <button
           onClick={() => onViewDeck(deck.id)}
           className="w-full rounded bg-yellow-200 px-4 py-2 text-zinc-900 transition hover:bg-yellow-300"

@@ -12,9 +12,9 @@ function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-[calc(100vh-10rem)] bg-black">
       <header className="p-8 text-white">
-        <div className="mt-10 grid min-h-screen w-full place-items-stretch bg-contain bg-center bg-no-repeat md:h-auto lg:h-auto">
+        <div className="mt-10 grid min-h-[calc(100vh-10rem)] w-full place-items-stretch bg-contain bg-center bg-no-repeat md:h-auto lg:h-auto">
           <div className="container mx-auto px-4 text-center">
             <Typography
               variant="h1"
