@@ -45,7 +45,7 @@ QuizBee is a web-based flashcard application that helps users create, manage, an
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/hennasavilahti/quizbee.git
+git clone https://github.com/Quizbee/quizbee.git
 ```
 
 2. Set up environment variables:
